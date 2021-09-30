@@ -16,20 +16,23 @@ public class Pawn extends AbstractPiece {
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> movesArray = new ArrayList<>();
-        if (this.colour.equals(PlayerColour.WHITE)) {
-            // move one square
-            movesArray.add(new Move(from, from.plus(-1, 0)));
-            // move two squares
-            if ( 6 == from.getRow()) {
-                movesArray.add(new Move(from, from.plus(-2, 0)));
-            }
-
-        } else {
-            movesArray.add(new Move(from, from.plus(1, 0)));
-            if ( 1 == from.getRow()) {
-                movesArray.add(new Move(from, from.plus(2, 0)));
-            }
+        int moveOneSquare = (this.colour == PlayerColour.WHITE) ? -1 : 1;
+        int moveTwoSquares = (this.colour == PlayerColour.WHITE) ? -2 : 2;
+        int startSquareForPawn = (this.colour == PlayerColour.WHITE) ? 6 : 1;
+        // move one square
+        Move intendedMove = new Move(from, from.plus(moveOneSquare, 0));
+        // check if there are piece in front
+        if (board.get(intendedMove.getTo()) == null) {
+            movesArray.add(intendedMove);
         }
+        // move two squares
+        intendedMove = new Move(from, from.plus(moveTwoSquares, 0));
+        // check if there are piece in front
+        if (startSquareForPawn == from.getRow() && board.get(intendedMove.getTo()) == null) {
+            movesArray.add(intendedMove);
+        }
+
+
         return movesArray;
     }
 }
