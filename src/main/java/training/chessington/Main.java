@@ -11,8 +11,12 @@ import training.chessington.view.ChessApp;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Board board = Board.forNewGame();
         Game game = new Game(board);
         Parent chessBoard = new ChessApp(game);
@@ -21,10 +25,5 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         scene.setRoot(chessBoard);
         primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

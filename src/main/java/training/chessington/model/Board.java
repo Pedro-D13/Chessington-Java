@@ -4,7 +4,7 @@ import training.chessington.model.pieces.*;
 
 public class Board {
 
-    private Piece[][] board = new Piece[8][8];
+    private final Piece[][] board = new Piece[8][8];
 
     private Board() {
     }
@@ -48,5 +48,15 @@ public class Board {
 
     public void placePiece(Coordinates coords, Piece piece) {
         board[coords.getRow()][coords.getCol()] = piece;
+    }
+
+    public boolean validMove(Coordinates coords) {
+        boolean valid;
+        try {
+            valid  = board[coords.getRow()][coords.getCol()] != null;
+        } catch (ArrayIndexOutOfBoundsException e ) {
+            return false;
+        }
+        return valid;
     }
 }
